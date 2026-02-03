@@ -1,0 +1,271 @@
+{
+  "info": {
+    "name": "MediCare Hospital API",
+    "_postman_id": "medicare-api-v1",
+    "description": "Complete API collection for MediCare Hospital Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register Patient",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"patient@test.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"John Doe\",\n  \"phone\": \"1234567890\",\n  \"role\": \"PATIENT\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register Doctor",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"doctor@test.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"Dr. Sarah Smith\",\n  \"phone\": \"9876543210\",\n  \"role\": \"DOCTOR\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"patient@test.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Doctors",
+      "item": [
+        {
+          "name": "Get All Doctors",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/doctors?page=0&size=10"
+          }
+        },
+        {
+          "name": "Get Doctor By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/doctors/1"
+          }
+        },
+        {
+          "name": "Create Doctor Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/doctors",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 2,\n  \"specialization\": \"CARDIOLOGY\",\n  \"qualification\": \"MBBS, MD\",\n  \"experienceYears\": 10,\n  \"consultationFee\": 500.00,\n  \"bio\": \"Experienced cardiologist with 10 years of practice\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Search Doctors",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/doctors?specialization=CARDIOLOGY&page=0&size=10"
+          }
+        },
+        {
+          "name": "Get Top Rated Doctors",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/doctors/top-rated"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointments",
+      "item": [
+        {
+          "name": "Book Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/appointments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"doctorId\": 1,\n  \"appointmentDateTime\": \"2024-12-25T10:00:00\",\n  \"appointmentType\": \"IN_PERSON\",\n  \"symptoms\": \"Chest pain and difficulty breathing\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Appointments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/appointments/my-appointments?page=0&size=10"
+          }
+        },
+        {
+          "name": "Get All Appointments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/appointments?page=0&size=10&status=SCHEDULED"
+          }
+        },
+        {
+          "name": "Update Appointment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/appointments/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CONFIRMED\",\n  \"notes\": \"Patient confirmed appointment\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Cancel Appointment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/appointments/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Medical Records",
+      "item": [
+        {
+          "name": "Create Medical Record",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/medical-records",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": 1,\n  \"appointmentId\": 1,\n  \"diagnosis\": \"Hypertension\",\n  \"treatment\": \"Lifestyle modification and medication\",\n  \"medications\": \"Amlodipine 5mg daily\",\n  \"bloodPressure\": \"140/90\",\n  \"heartRate\": 80,\n  \"weight\": 75.5\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Patient Records",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/medical-records/patient/1?page=0&size=10"
+          }
+        },
+        {
+          "name": "Upload Medical File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/medical-records/1/upload",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "path/to/document.pdf"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics (Admin)",
+      "item": [
+        {
+          "name": "Dashboard Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/analytics/dashboard"
+          }
+        },
+        {
+          "name": "Appointment Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/analytics/appointments"
+          }
+        },
+        {
+          "name": "Doctor Performance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/analytics/doctors/performance"
+          }
+        },
+        {
+          "name": "Revenue Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": "{{baseUrl}}/api/analytics/revenue"
+          }
+        }
+      ]
+    }
+  ]
+}
