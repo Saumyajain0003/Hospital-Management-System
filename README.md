@@ -207,10 +207,4 @@ This project demonstrates:
 - ✅ File handling
 - ✅ Email integration
 
-### 📄 License
 
-This project is for educational purposes.
-
----
-
-**Built with ❤️ for Backend Engineering Course**
