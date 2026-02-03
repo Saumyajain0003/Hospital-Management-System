@@ -193,7 +193,6 @@ curl -X POST http://localhost:8080/api/appointments \
   }'
 ```
 
-### 🎓 For Students
 
 This project demonstrates:
 - ✅ Clean architecture and layered design
